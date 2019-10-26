@@ -1,86 +1,52 @@
 import IModel from '../interfaces/Model';
 import { readFile, writeFile, readFileSync } from 'fs';
+import { connect } from 'mongoose';
 
 interface IDWise {
     id: string
 }
 
-export default class Model<T extends IDWise> implements IModel<T> {
-    
-    public databaseURL: string;
-    private records: T[];
+export default abstract class Model<T extends IDWise> implements IModel<T> {
 
-    constructor(databaseURL: string) {
-        this.databaseURL = databaseURL;
-        this.records = this.readFromJSON(databaseURL);
+    public Model: any;
+
+    constructor() {
+        connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+    }
+    
+    async index() {
+        const docs = await this.Model.find({});
+        return docs;
     }
 
-    create(newRecord: T) {
-        const record = this.findExisitingRecord(newRecord.id);
-
-        if (record) {
-            return record
-        }
-        
-        this.records.push(newRecord);
-        this.writeToJSON(this.records, this.databaseURL);
-        return newRecord;
+    create(data: Partial<T>) {
+        const doc = new this.Model(data);
+        doc.save();
+        return doc;
     }
 
     read(id: string) {
-        const record = this.findExisitingRecord(id);
-        if (record) {
-            return record
-        }
-        console.log('the record does not exist');
+        return this.Model.find({ _id : id });
     }
     
-    update(id: string, data: Partial<T>) {
-        this.records.forEach((record: T, index: number) => {
-            if (id === record.id) {
-                this.records[index] = {...record, ...data};
-                this.writeToJSON(this.records, this.databaseURL);
-                return id
+    async update(id: string, data: Partial<T>) {
+        let doc = new this.Model(data);
+        if (doc) {
+            for (let entry in data) {
+                if (data.hasOwnProperty(entry)) {
+                    doc[entry] = data[entry];
+                }
             }
-        })
-        return id
+            await doc.save();
+        } else {
+            doc  = this.create(data);
+        }
+        return doc;
     }
 
     remove(id: string) {
-        this.records = this.records.filter(p => p.id !== id);
-        this.writeToJSON(this.records, this.databaseURL);
-        console.log(`the record with the id ${id} has been removed` );
+        this.Model.find({ _id : id }).remove();
+        return `product id ${id} has been removed from the products list`;
     }
 
-    index() {
-        return this.records;
-    }
-
-    private findExisitingRecord(id: string) : T{
-        return this.records.find(p => p.id === id);
-    }
-
-    private readFromJSON(filePath: string) : T[] {
-        try {
-            const data = readFileSync(filePath, 'utf8');
-            if (data) {
-                return JSON.parse(data);
-            }
-            return []
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    private writeToJSON(inputData, filePath) {
-        writeFile(filePath, JSON.parse(inputData), err => {
-            if (err) {
-                if (err) {
-                    console.log('Error writing file', err)
-                } else {
-                    console.log('Successfully wrote file')
-                }
-            }
-        })
-    }
 }

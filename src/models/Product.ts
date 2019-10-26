@@ -1,9 +1,12 @@
-import Model from './Model';
+import ProductSchema from '../schemas/Product';
 import IProduct from '../interfaces/Product';
+import Model from './Model';
+import { model } from 'mongoose';
 
-export default class Product extends Model<IProduct> {
-    constructor() {
-        const databaseURL = 'D:\\Projects\\ecommerce-express-api\\src\\products.json';
-        super(databaseURL);
+export default class Product extends Model<IProduct>{
+
+    constructor(data?: IProduct) {
+        super();
+        this.Model = model('Product', ProductSchema);
     }
 }

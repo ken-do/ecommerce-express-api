@@ -8,6 +8,7 @@ require('dotenv').config()
 const app = express();
 
 app.use(serveStatic(path.join(__dirname, 'src', 'static')));
+app.use(express.json());
 
 app.get('/api/products', ProductController.index);
 
