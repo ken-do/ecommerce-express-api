@@ -5,7 +5,7 @@ interface IDWise {
     id: string
 }
 
-export default abstract class Model<T extends IDWise> implements IModel<T> {
+export default class Model<T extends IDWise> implements IModel<T> {
 
     public Model: any;
 
@@ -25,28 +25,26 @@ export default abstract class Model<T extends IDWise> implements IModel<T> {
     }
 
     async read(id: string) {
-        const doc = await this.Model.find({ _id : id });
+        const doc = await this.Model.findOne({ _id : id });
         return doc;
     }
     
     async update(id: string, data: Partial<T>) {
-        let doc = new this.Model(data);
-        if (doc) {
-            for (let entry in data) {
-                if (data.hasOwnProperty(entry)) {
-                    doc[entry] = data[entry];
-                }
+        let doc = await this.read(id);
+        if (doc && doc.save) {
+            for (let key in data) {
+                    doc[key] = data[key];
             }
             await doc.save();
         } else {
-            doc  = this.create(data);
+            doc  = await this.create(data);
         }
         return doc;
     }
 
     async remove(id: string) {
         const doc = this.Model.find({ _id : id });
-        await doc.remove();
+        await doc.deleteOne();
         return `product id ${id} has been removed from the products list`;
     }
 

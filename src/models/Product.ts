@@ -1,11 +1,11 @@
 import ProductSchema from '../schemas/Product';
-import IProduct from '../interfaces/Product';
+import IProductData from '../interfaces/ProductData';
 import Model from './Model';
 import { model } from 'mongoose';
 
-export default class Product extends Model<IProduct>{
+export default class Product extends Model<IProductData>{
 
-    constructor(data?: IProduct) {
+    constructor() {
         super();
         this.Model = model('Product', ProductSchema);
     }
