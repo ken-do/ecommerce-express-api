@@ -1,5 +1,4 @@
 import IModel from '../interfaces/Model';
-import { readFile, writeFile, readFileSync } from 'fs';
 import { connect } from 'mongoose';
 
 interface IDWise {
@@ -19,14 +18,15 @@ export default abstract class Model<T extends IDWise> implements IModel<T> {
         return docs;
     }
 
-    create(data: Partial<T>) {
+    async create(data: Partial<T>) {
         const doc = new this.Model(data);
-        doc.save();
+        await doc.save();
         return doc;
     }
 
-    read(id: string) {
-        return this.Model.find({ _id : id });
+    async read(id: string) {
+        const doc = await this.Model.find({ _id : id });
+        return doc;
     }
     
     async update(id: string, data: Partial<T>) {
@@ -44,8 +44,9 @@ export default abstract class Model<T extends IDWise> implements IModel<T> {
         return doc;
     }
 
-    remove(id: string) {
-        this.Model.find({ _id : id }).remove();
+    async remove(id: string) {
+        const doc = this.Model.find({ _id : id });
+        await doc.remove();
         return `product id ${id} has been removed from the products list`;
     }
 
