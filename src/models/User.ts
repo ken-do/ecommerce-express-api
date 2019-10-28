@@ -7,8 +7,6 @@ export default class User extends Model<IUserData>{
 
     constructor() {
         super();
-        this.Model = model('User', UserSchema);
+        this.model = model('User', UserSchema);
     }
 }
-
-export const user = new User;

@@ -7,8 +7,6 @@ export default class Product extends Model<IProductData>{
 
     constructor() {
         super();
-        this.Model = model('Product', ProductSchema);
+        this.model = model('Product', ProductSchema);
     }
 }
-
-export const product = new Product;

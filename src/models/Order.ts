@@ -7,8 +7,6 @@ export default class Order extends Model<IOrderData>{
 
     constructor() {
         super();
-        this.Model = model('Order', OrderSchema);
+        this.model = model('Order', OrderSchema);
     }
 }
-
-export const order = new Order;

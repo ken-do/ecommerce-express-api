@@ -3,25 +3,25 @@ import { connect } from 'mongoose';
 
 export default class Model<T> implements IModel<T> {
 
-    public Model: any;
+    public model: any;
 
     constructor() {
         connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
     }
     
     async index() {
-        const docs = await this.Model.find({});
+        const docs = await this.model.find({});
         return docs;
     }
 
     async create(data: Partial<T>) {
-        const doc = new this.Model(data);
+        const doc = new this.model(data);
         await doc.save();
         return doc;
     }
 
     async read(id: string) {
-        const doc = await this.Model.findOne({ _id : id });
+        const doc = await this.model.findOne({ _id : id });
         return doc;
     }
     
@@ -39,7 +39,7 @@ export default class Model<T> implements IModel<T> {
     }
 
     async remove(id: string) {
-        const doc = this.Model.find({ _id : id });
+        const doc = this.model.find({ _id : id });
         await doc.deleteOne();
         return `product id ${id} has been removed from the products list`;
     }
