@@ -1,4 +1,4 @@
-import Product from '../models/Product';
+import { product } from '../models/Product';
 import IProductData from '../interfaces/ProductData';
 import IModel from '../interfaces/Model';
 import CRUDController from './CRUDController';
@@ -9,7 +9,7 @@ export default class ProductController extends CRUDController {
 
     constructor() {
         super();
-        this.model = new Product;
+        this.model = product;
     }
 
 }

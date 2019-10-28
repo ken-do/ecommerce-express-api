@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as serveStatic from 'serve-static';
 import ProductController from './src/controllers/ProductController';
 import RouteHelper from './src/ultils/RouteHelper';
+import CheckoutController from './src/controllers/CheckoutController';
 
 require('dotenv').config()
 
@@ -14,6 +15,8 @@ app.use(express.json());
 
 const routeHelper = new RouteHelper(app);
 routeHelper.createCRUDRoutes('/api/products', new ProductController);
+
+app.post('/api/checkout', CheckoutController.checkout);
 
 
 app.listen(process.env.PORT,  function() {

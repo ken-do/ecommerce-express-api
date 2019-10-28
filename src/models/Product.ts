@@ -10,3 +10,5 @@ export default class Product extends Model<IProductData>{
         this.Model = model('Product', ProductSchema);
     }
 }
+
+export const product = new Product;

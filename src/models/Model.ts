@@ -1,11 +1,7 @@
 import IModel from '../interfaces/Model';
 import { connect } from 'mongoose';
 
-interface IDWise {
-    id: string
-}
-
-export default class Model<T extends IDWise> implements IModel<T> {
+export default class Model<T> implements IModel<T> {
 
     public Model: any;
 
