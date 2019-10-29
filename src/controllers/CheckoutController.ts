@@ -2,12 +2,11 @@ import * as express from 'express';
 
 import Order from '../models/Order';
 import User from '../models/User';
-import IOrderData from '../interfaces/OrderData';
 
 export default class CheckoutController {
     
     static checkout(req: express.Request, res: express.Response) {
-        let userId: string, newOrder: IOrderData;
+        let userId: string;
         const { email, phone, address, orderItems } = req.body;
         const user = new User;
         const userModel = user.model;
@@ -19,8 +18,8 @@ export default class CheckoutController {
             userId = userModel.create({email, phone, address})._id;
         }
 
-        const order = new Order;
-        newOrder = order.model.create({user_id: userId, order_items: orderItems});
+        const order = new Order({user_id: userId, order_timestamp: new Date().getTime(), order_items: orderItems});
+        order.save();
 
         res.send('Ordered successfully.');
     }

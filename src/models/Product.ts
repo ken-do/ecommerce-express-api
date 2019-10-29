@@ -5,7 +5,7 @@ import { model } from 'mongoose';
 
 export default class Product extends Model<IProductData>{
 
-    constructor() {
+    constructor(data?: Partial<IProductData>) {
         super();
         this.model = model('Product', ProductSchema);
     }

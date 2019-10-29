@@ -4,11 +4,18 @@ import { connect } from 'mongoose';
 export default class Model<T> implements IModel<T> {
 
     public model: any;
+    public data: Partial<T>;
 
-    constructor() {
+    constructor(data?: Partial<T>) {
         connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+        if (data) {
+            this.data = data;
+        }
     }
-    
+    async save() {
+        const doc = await this.create(this.data);
+        return doc;
+    }
     async index() {
         const docs = await this.model.find({});
         return docs;

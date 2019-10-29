@@ -5,7 +5,7 @@ import { model } from 'mongoose';
 
 export default class Order extends Model<IOrderData>{
 
-    constructor() {
+    constructor(data?: Partial<IOrderData>) {
         super();
         this.model = model('Order', OrderSchema);
     }
