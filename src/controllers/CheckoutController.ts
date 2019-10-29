@@ -5,23 +5,21 @@ import User from '../models/User';
 
 export default class CheckoutController {
     
-    static checkout(req: express.Request, res: express.Response) {
+    static async checkout(req: express.Request, res: express.Response) {
         let userId: string;
         const { email, phone, address, orderItems } = req.body;
         const user = new User;
         const userModel = user.model;
-        const existingUser = userModel.find({email});
-
+        const existingUser = await userModel.findOne({email});
         if (existingUser) {
             userId = existingUser._id
         } else {
-            userId = userModel.create({email, phone, address})._id;
+            userId = await userModel.create({email, phone, address})._id;
         }
-
         const order = new Order({user_id: userId, order_timestamp: new Date().getTime(), order_items: orderItems});
-        order.save();
+        const newOrder = await order.save();
 
-        res.send('Ordered successfully.');
+        res.send(newOrder);
     }
     
 }
