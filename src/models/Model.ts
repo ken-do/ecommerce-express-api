@@ -9,7 +9,6 @@ export default class Model<T> implements IModel<T> {
     constructor(data?: Partial<T>) {
         connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
         if (data) {
-            console.log(data);
             this.data = data;
         }
     }
