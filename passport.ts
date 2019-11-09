@@ -1,9 +1,10 @@
-import * as passport from 'passport';
-import { BasicStrategy } from 'passport-http';
-import * as bcrypt from 'bcrypt';
+import bcrypt = require('bcrypt');
+import passport = require('passport');
+import passportHttp = require('passport-http');
 
 import User from './src/models/User';
-import IUserData from './src/interfaces/UserData';
+
+const { BasicStrategy } = passportHttp;
 
 passport.use(new BasicStrategy(
     async (username, password, done) => {
@@ -15,9 +16,12 @@ passport.use(new BasicStrategy(
         }
 
         const match = await bcrypt.compare(password, user.hashedPassword);
+
         if (match) {
             return done(null, user);
-        }
+        } 
+        
+        return done(null, false);
     }
 ));
 
