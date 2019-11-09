@@ -1,5 +1,6 @@
 import IModel from '../interfaces/Model';
-import { connect } from 'mongoose';
+import { connect, MongooseDocument } from 'mongoose';
+import { Timestamp } from 'bson';
 
 export default class Model<T> implements IModel<T> {
 
@@ -36,7 +37,7 @@ export default class Model<T> implements IModel<T> {
         let doc = await this.read(id);
         if (doc && doc.save) {
             for (let key in data) {
-                    doc[key] = data[key];
+                doc[key] = data[key];
             }
             await doc.save();
         } else {
@@ -50,5 +51,4 @@ export default class Model<T> implements IModel<T> {
         await doc.deleteOne();
         return `product id ${id} has been removed from the products list`;
     }
-
 }
