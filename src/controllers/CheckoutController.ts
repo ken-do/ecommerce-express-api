@@ -7,21 +7,20 @@ export default class CheckoutController {
     
     async checkout(req: express.Request, res: express.Response) {
         let userId: string;
-        const { email, phone, address, orderItems } = req.body;
-
+        const { email, phone, address, items } = req.body;
         const user = new User;
         const userModel = user.model;
         const existingUser = await userModel.findOne({email});
         if (existingUser) {
             userId = existingUser._id
         } else {
-            userId = await userModel.create({email, phone, address})._id;
+            const newUser = await userModel.create({email, phone, address});
+            userId = newUser._id;
         }
         
-        const order = new Order({user_id: userId, order_timestamp: new Date().getTime(), order_items: orderItems});
+        const order = new Order({user_id: userId, order_timestamp: new Date().getTime(), order_items: items});
         const newOrder = await order.save();
-
-        res.send(newOrder);
+        res.send({ message: 'Ordered successfully.'});
     }
     
 }
