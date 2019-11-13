@@ -5,6 +5,7 @@ import serveStatic = require('serve-static');
 import ProductController from './src/controllers/ProductController';
 import RouteFactory from './src/ultils/RouteFactory';
 import CheckoutController from './src/controllers/CheckoutController';
+import AuthController from './src/controllers/AuthController';
 
 require('dotenv').config()
 
@@ -26,9 +27,14 @@ routeFactory.makePublic([
         requestMethod: 'post',
         controller: new CheckoutController,
         handler: 'checkout'
+    },
+    {
+        path: '/login',
+        requestMethod: 'post',
+        controller: new AuthController,
+        handler: 'login'
     }
-]
-)
+]);
 
 routeFactory.makePrivate([
     {

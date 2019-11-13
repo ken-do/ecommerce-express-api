@@ -6,6 +6,7 @@ export default class Model<T> implements IModel<T> {
 
     public model: any;
     public data: Partial<T>;
+    public excludedFields: string[] = [];
 
     constructor(data?: Partial<T>) {
         connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});

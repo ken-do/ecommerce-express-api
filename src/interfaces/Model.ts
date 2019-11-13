@@ -4,4 +4,5 @@ export default interface IModel<T> {
     update: (id : string, data: Partial<T>) => Promise<T>,
     remove: (id: string) => Promise<string>,
     index: () => Promise<T[]>,
+    excludedFields: string[]
 }
