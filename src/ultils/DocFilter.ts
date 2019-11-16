@@ -17,6 +17,7 @@ export default class DocFilter implements IDocFilter {
     }
 
     private removeExcludedFields(doc: MongooseDocument) {
+        console.log(this.model);
         if (this.model.excludedFields.length > 0) {
             for (let key in doc) {
                 if (this.model.excludedFields.indexOf(key) > -1) {

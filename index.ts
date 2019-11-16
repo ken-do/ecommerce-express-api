@@ -6,6 +6,7 @@ import ProductController from './src/controllers/ProductController';
 import RouteFactory from './src/ultils/RouteFactory';
 import CheckoutController from './src/controllers/CheckoutController';
 import AuthController from './src/controllers/AuthController';
+import UserController from './src/controllers/UserController';
 
 require('dotenv').config()
 
@@ -20,6 +21,11 @@ routeFactory.makePublic([
     {
         path: '/products',
         controller: new ProductController,
+        useCRUD: true,
+    },
+    {
+        path: '/users',
+        controller: new UserController,
         useCRUD: true,
     },
     {

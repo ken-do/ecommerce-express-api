@@ -1,10 +1,8 @@
-import bcrypt = require('bcrypt');
-import passport = require('passport');
-import passportHttp = require('passport-http');
+import * as bcrypt from 'bcrypt';
+import * as passport from 'passport';
+import { BasicStrategy } from 'passport-http';
 
 import User from './src/models/User';
-
-const { BasicStrategy } = passportHttp;
 
 passport.use(new BasicStrategy(
     async (username, password, done) => {
