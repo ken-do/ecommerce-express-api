@@ -52,4 +52,14 @@ export default class Model<T> implements IModel<T> {
         await doc.deleteOne();
         return `product id ${id} has been removed from the products list`;
     }
+
+    async find(options: object) {
+        const doc = await this.model.find(options);
+        return doc;
+    }
+
+    async findOne(options: object) {
+        const doc = await this.model.findOne(options);
+        return doc;
+    }
 }

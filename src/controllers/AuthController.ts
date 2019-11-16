@@ -10,20 +10,26 @@ export default class AuthController {
     public userModel: any;
 
     constructor() {
-        const userObj = new User;
-        this.userModel = userObj.model;
+        this.userModel = new User;
         this.userFilter = new DocFilter(this.userModel);
     }
 
-    login(req: express.Request, res: express.Response) {
+    async login(req: express.Request, res: express.Response) {
         const { email, password } = req.body;
-        const user = this.userModel.find({ email });
-        const passwordIsValid = bcrypt.compare(password, user.hashedPassword);
-
-        if (passwordIsValid) {
-           res.send(this.userFilter.apply(user)); 
-        } else {
+        try {
+            const user = await this.userModel.findOne({ email });
+            const passwordIsValid = await bcrypt.compare(password, user.hashedPassword);
+            if (passwordIsValid) {
+                res.send(this.userFilter.apply(user)); 
+            } else {
+                throw('Unauthorized');
+            }
+        } catch(e) {
             res.status(401);
+            res.send({
+                statusCode: 401,
+                message: 'Unauthorized'
+            });
         }
     }
 }
