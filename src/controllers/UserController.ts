@@ -6,7 +6,6 @@ import IUserData from '../interfaces/UserData';
 import IModel from '../interfaces/Model';
 import CRUDController from './CRUDController';
 import DocFilter from '../ultils/DocFilter';
-import IDocFilter from '../interfaces/DocFilter';
 
 export default class UserController extends CRUDController {
     

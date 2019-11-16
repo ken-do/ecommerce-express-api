@@ -19,7 +19,7 @@ export default class CheckoutController {
         }
         
         const order = new Order({user_id: userId, order_timestamp: new Date().getTime(), order_items: items});
-        const newOrder = await order.save();
+        await order.save();
         res.send({ message: 'Ordered successfully.'});
     }
     
