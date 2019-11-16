@@ -1,6 +1,6 @@
-import express = require('express');
-import path = require('path');
-import serveStatic = require('serve-static');
+import * as express from 'express';
+import * as path from 'path';
+import * as serveStatic from 'serve-static';
 
 import ProductController from './src/controllers/ProductController';
 import RouteFactory from './src/ultils/RouteFactory';

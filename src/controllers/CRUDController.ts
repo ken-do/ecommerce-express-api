@@ -27,23 +27,20 @@ export default class CRUDController implements ICRUDController {
         const data = req.body;
         if (data) {
             let newDoc = await this.model.create(data);
-            newDoc = this.filter.apply(newDoc);
-            res.send(newDoc);
+            res.send(this.filter.apply(newDoc));
         }
     }
     
     async read(req: express.Request, res: express.Response): Promise<void> {
         let doc = await this.model.read(req.params.id);
-        doc = this.filter.apply(doc);
-        res.send(doc);
+        res.send(this.filter.apply(doc));
     }
 
     async update(req: express.Request, res: express.Response): Promise<void> {
         const data = req.body;
         if (data) {
             let updatedDoc = await this.model.update(req.params.id, data);
-            updatedDoc = this.filter.apply(updatedDoc);
-            res.send(updatedDoc);
+            res.send(this.filter.apply(updatedDoc));
         }
     }
 

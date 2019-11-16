@@ -10,23 +10,20 @@ export default class DocFilter implements IDocFilter {
     }
 
     public apply(doc: MongooseDocument) {
-        let filteredDoc: Partial<MongooseDocument> = doc;
+        let filteredDoc: MongooseDocument;
         filteredDoc = this.removeExcludedFields(doc);
         //additonal filters can be added here
         return filteredDoc;
     }
 
-    public removeExcludedFields(doc: MongooseDocument) {
-        if (this.model.excludedFields.length) {
-            let filteredDoc: Partial<MongooseDocument>;
+    private removeExcludedFields(doc: MongooseDocument) {
+        if (this.model.excludedFields.length > 0) {
             for (let key in doc) {
-                if (doc.hasOwnProperty(key) && this.model.excludedFields.indexOf(key) === -1) {
-                    filteredDoc[key] = doc[key];
+                if (this.model.excludedFields.indexOf(key) > -1) {
+                    doc[key] = undefined;
                 }
             }
-            return filteredDoc;
         }
-        
         return doc;
     }
 }

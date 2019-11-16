@@ -8,5 +8,6 @@ export default class Product extends Model<IProductData>{
     constructor(data?: Partial<IProductData>) {
         super();
         this.model = model('Product', ProductSchema);
+        this.excludedFields = ['__v'];
     }
 }
