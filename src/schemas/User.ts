@@ -4,5 +4,7 @@ export default new Schema({
     email: String,
     phone: String,
     address: String,
-    hashedPassword: String
+    hashedPassword: String,
+    token: String,
+    tokenExpiryTime: String
 });

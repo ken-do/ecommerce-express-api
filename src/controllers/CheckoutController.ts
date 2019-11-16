@@ -8,7 +8,6 @@ export default class CheckoutController {
     async checkout(req: express.Request, res: express.Response) {
         let userId: string;
         const { email, phone, address, items } = req.body;
-
         const userModel = new User;
         const existingUser = await userModel.findOne({email});
 
@@ -21,7 +20,7 @@ export default class CheckoutController {
         
         const order = new Order({user_id: userId, order_timestamp: new Date().getTime(), order_items: items});
         await order.save();
-        
+
         res.send({ message: 'Ordered successfully.'});
     }
     

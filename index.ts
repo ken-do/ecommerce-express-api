@@ -48,11 +48,21 @@ routeFactory.makePrivate([
         requestMethod: 'post',
         controller: new CheckoutController,
         handler: 'checkout',
-        authenticate: 'basic',
+        authenticate: 'bearer',
         authenticateOptions: {
             session: false
         }
-    }
+    },
+    {
+        path: '/logout',
+        requestMethod: 'post',
+        controller: new AuthController,
+        handler: 'logout',
+        authenticate: 'bearer',
+        authenticateOptions: {
+            session: false
+        }
+    },
 ]);
 
 
