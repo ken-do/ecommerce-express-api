@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 
+import IDocFilter from '../interfaces/DocFilter';
+import IAuthenticatedRequest from '../interfaces/AuthenticatedRequest';
+
 import User from '../models/User';
 import DocFilter from '../ultils/DocFilter';
-import IDocFilter from '../interfaces/DocFilter';
 import Token from '../ultils/Token';
-import IAuthenticatedRequest from '../interfaces/AuthenticatedRequest';
 
 export default class AuthController {
     public userFilter: IDocFilter;

@@ -1,5 +1,6 @@
-import ProductSchema from '../schemas/Product';
 import IProductData from '../interfaces/ProductData';
+
+import ProductSchema from '../schemas/Product';
 import Model from './Model';
 import { model } from 'mongoose';
 

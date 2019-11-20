@@ -1,5 +1,6 @@
-import OrderSchema from '../schemas/Order';
 import IOrderData from '../interfaces/OrderData';
+
+import OrderSchema from '../schemas/Order';
 import Model from './Model';
 import { model } from 'mongoose';
 

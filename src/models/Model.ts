@@ -1,6 +1,6 @@
+import { connect } from 'mongoose';
+
 import IModel from '../interfaces/Model';
-import { connect, MongooseDocument } from 'mongoose';
-import { Timestamp } from 'bson';
 
 export default class Model<T> implements IModel<T> {
 

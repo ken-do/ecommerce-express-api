@@ -1,5 +1,6 @@
-import UserSchema from '../schemas/User';
 import IUserData from '../interfaces/UserData';
+
+import UserSchema from '../schemas/User';
 import Model from './Model';
 import { model } from 'mongoose';
 
