@@ -25,8 +25,8 @@ export default class Model<T> implements IModel<T> {
 
     async create(data: Partial<T>) {
         const doc = new this.model(data);
-        await doc.save();
-        return doc;
+        const newDoc = await doc.save();
+        return newDoc;
     }
 
     async read(id: string) {
