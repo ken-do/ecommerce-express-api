@@ -1,10 +1,11 @@
 import * as express from 'express';
 
-import Model from '../models/Model';
 import ICRUDController from '../interfaces/CRUDController';
 import IModel from '../interfaces/Model';
 import IDocFilter from '../interfaces/DocFilter';
+
 import DocFilter from '../ultils/DocFilter';
+import Model from '../models/Model';
 
 export default class CRUDController implements ICRUDController {
     

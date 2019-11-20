@@ -1,6 +1,7 @@
-import Product from '../models/Product';
 import IProductData from '../interfaces/ProductData';
 import IModel from '../interfaces/Model';
+
+import Product from '../models/Product';
 import CRUDController from './CRUDController';
 import DocFilter from '../ultils/DocFilter';
 

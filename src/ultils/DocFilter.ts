@@ -1,4 +1,5 @@
 import { MongooseDocument } from 'mongoose';
+
 import IModel from '../interfaces/Model';
 import IDocFilter from '../interfaces/DocFilter';
 

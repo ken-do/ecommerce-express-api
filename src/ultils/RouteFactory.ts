@@ -3,6 +3,7 @@ import { Application } from "express";
 import ICRUDController from "../interfaces/CRUDController";
 import IRoutes from "../interfaces/Route";
 import IPrivateRoutes from "../interfaces/PrivateRoute";
+
 import passport from '../../passport';
 
 class RouteFactory {

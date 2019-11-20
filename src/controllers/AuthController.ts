@@ -1,9 +1,10 @@
 import * as express from 'express';
 import * as bcrypt from 'bcrypt';
 
+import IDocFilter from '../interfaces/DocFilter';
+
 import User from '../models/User';
 import DocFilter from '../ultils/DocFilter';
-import IDocFilter from '../interfaces/DocFilter';
 
 export default class AuthController {
     public userFilter: IDocFilter;
